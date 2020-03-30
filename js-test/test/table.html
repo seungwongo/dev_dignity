@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div>
+      <input type="search" class="form-control" style="margin-bottom:5px;" onkeydown="doSearch(event, this.value)" />
+    </div>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <td onclick="sort('userId');">userId</td>
+          <td onclick="sort('firstName');">First Name</td>
+          <td onclick="sort('lastName');">Last Name</td>
+          <td onclick="sort('yyyymmdd');">yyyymmdd</td>
+          <td onclick="sort('phone');">phone</td>
+          <td onclick="sort('address');">address</td>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</body>
+
+<script>
+  var userList = [{
+      userId: "1",
+      firstName: "Seungwon",
+      lastName: "Go",
+      yyyymmdd: "19770513",
+      phone: "010-111-1111",
+      address: "Jeju"
+    },
+    {
+      userId: "2",
+      firstName: "Jeremy",
+      lastName: "Go",
+      yyyymmdd: "19800103",
+      phone: "010-111-1112",
+      address: "Seoul"
+    },
+    {
+      userId: "3",
+      firstName: "James",
+      lastName: "Go",
+      yyyymmdd: "19821113",
+      phone: "010-111-1113",
+      address: "Seoul"
+    }
+  ];
+
+  var sortOption = {
+    userId: true,
+    firstName: true,
+    lastName: true,
+    yyyymmdd: true,
+    phone: true,
+    address: true
+  }
+
+  function sort(sortField) {
+    if (sortOption[sortField]) {
+      userList = userList.sort((a, b) => (a[sortField] < b[sortField]) ? -1 : (a[sortField] > b[sortField]) ? 1 : 0);
+    } else {
+      userList = userList.sort((a, b) => (a[sortField] < b[sortField]) ? 1 : (a[sortField] > b[sortField]) ? -1 : 0);
+    }
+
+    sortOption[sortField] = !sortOption[sortField];
+
+    renderTable(userList);
+  }
+
+  function doSearch(e, keyword) {
+    if (e.keyCode == 13) {
+      var regexp = new RegExp(keyword, 'gi');
+      var data = userList.filter(item => (regexp.test(item.userId) || regexp.test(item.firstName) || regexp.test(item
+        .lastName) || regexp.test(item.yyyymmdd) || regexp.test(item.phone) || regexp.test(item.address)));
+      renderTable(data);
+    }
+  }
+
+
+  function renderTable(data) {
+    var oTable = document.querySelector('table>tbody');
+
+    var h = [];
+    data.forEach(item => {
+      h.push("<tr>");
+      h.push("<td>" + item.userId + "</td>");
+      h.push(`<td>${item.firstName}</td>`);
+      h.push(`<td>${item.lastName}</td>`);
+      h.push(`<td>${item.yyyymmdd}</td>`);
+      h.push(`<td>${item.phone}</td>`);
+      h.push(`<td>${item.address}</td>`);
+      h.push("</tr>");
+    });
+
+    oTable.innerHTML = h.join("");
+  }
+
+  renderTable(userList);
+</script>
+
+</html>
