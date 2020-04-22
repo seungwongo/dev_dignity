@@ -11,7 +11,7 @@
   <input type="number" />
   <br>
   <br>
-  <input type="text" onkeydown="checkFloat(event, this.value)" />
+  <input type="text" onkeydown="checkFloat(event, this.value)" onkeyup="preventKr(this);" />
   <script>
     function checkNum(event) {
       var key = event.key;
@@ -26,6 +26,7 @@
     function checkFloat(event, v) {
       var key = event.key;
       console.log(key);
+
       if ((key >= 0 && key < 10) || key == 'Backspace') {
         return true;
       } else if (key == '.') {
@@ -35,6 +36,10 @@
       } else {
         event.preventDefault();
       }
+    }
+
+    function preventKr(obj) {
+      obj.value = obj.value.replace(/[^0-9.]/gi, "");
     }
   </script>
 </body>
