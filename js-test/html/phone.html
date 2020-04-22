@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input:invalid {
+      border: red solid 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="tel" id="tel1" maxLength="3" pattern="^01[0-9]{1}" required="required"
+    onkeyup="preventKr(this);next(this.value, 3, 'tel2');" onkeydown="checkNum(event, this.value)" />-
+  <input type="tel" id="tel2" maxLength="4" pattern="[0-9]{4}" required="required"
+    onkeyup="preventKr(this);next(this.value, 4, 'tel3');" onkeydown="checkNum(event, this.value)" />-
+  <input type="tel" id="tel3" maxLength="4" pattern="[0-9]{4}" required="required"
+    onkeydown="checkNum(event, this.value)" onkeyup="preventKr(this);" />
+
+  <script>
+    function next(val, len, nextId) {
+      if (val.length == len) {
+        document.getElementById(nextId).focus();
+      }
+    }
+
+    function checkNum(event) {
+      var key = event.key;
+      console.log(key);
+      if ((key >= 0 && key < 10) || key == 'Backspace') {
+        return true;
+      } else {
+        event.preventDefault();
+      }
+    }
+
+    function preventKr(obj) {
+      obj.value = obj.value.replace(/[^0-9.]/gi, "");
+    }
+  </script>
+</body>
+
+</html>
