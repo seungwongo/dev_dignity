@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="number" />
+  <br>
+  <br>
+  <input type="text" onkeydown="checkFloat(event, this.value)" onkeyup="preventKr(this);" />
+  <script>
+    function checkNum(event) {
+      var key = event.key;
+      console.log(key);
+      if ((key >= 0 && key < 10) || key == 'Backspace') {
+        return true;
+      } else {
+        event.preventDefault();
+      }
+    }
+
+    function checkFloat(event, v) {
+      var key = event.key;
+      console.log(key);
+
+      if ((key >= 0 && key < 10) || key == 'Backspace') {
+        return true;
+      } else if (key == '.') {
+        if (v == '') event.preventDefault();
+        else if (v.indexOf('.') === -1) return true;
+        else event.preventDefault();
+      } else {
+        event.preventDefault();
+      }
+    }
+
+    function preventKr(obj) {
+      obj.value = obj.value.replace(/[^0-9.]/gi, "");
+    }
+  </script>
+</body>
+
+</html>
