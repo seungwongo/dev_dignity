@@ -80,13 +80,8 @@
           
         </div>
       </div>
-      <div class="mb-3 row">
-        <div class="col-6 d-grid p-1">
-          <button type="button" class="btn btn-lg btn-dark" @click="goToList">취소하기</button>
-        </div>
-        <div class="col-6 d-grid p-1">
-          <button type="button" class="btn btn-lg btn-danger">저장하기</button>
-        </div>
+      <div class="mb-3 row m-auto">
+        <button type="button" class="btn btn-lg btn-dark" @click="goToList">확인</button>
       </div>
     </div>
   </main>
